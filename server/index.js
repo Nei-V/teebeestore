@@ -31,6 +31,9 @@ client.connect(err => {
     client.close();
 });
 
+//if mongodb connection doesn't work to check this guide:
+//https://docs.mongodb.com/guides/server/drivers/
+
 //Middleware
 //For initializing the req.body. If the middleware is not used, the req.body is undefined.
 
