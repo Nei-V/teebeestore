@@ -8,10 +8,6 @@ const cloudinaryController = require('./controllers/cloudinary_controller');
 const userController = require('./controllers/user_controller');
 const productsController = require('./controllers/products_controller');
 
-//const mongoose = require('mongoose');
-
-const MongoClient = require('mongodb').MongoClient;
-
 //import express server
 const express = require('express');
 
@@ -22,12 +18,17 @@ const app = express();
 const PORT = 3000;
 
 //MongoDB client
-const uri = process.env.CONNECTION_STRING;
-const client = new MongoClient(uri, {useNewUrlParser: true });
-client.connect(err => {
-    const collection = client.db("test").collection('devices');
+const mongoose = require('mongoose');
+
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+const url = process.env.CONNECTION_STRING;
+
+MongoClient.connect(url, function(err,client) {
+    //const collection = client.db("test").collection('devices');
     // perform actions on the collection object
-    console.log("connectetion error");
+    //console.log("connectetion error");
+    assert.equal(null,err);
     client.close();
 });
 
@@ -41,7 +42,8 @@ app.use(bodyParser.json());
 
 //session -> for cookies
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    //secret: process.env.SESSION_SECRET,
+    secret: "test",//to change to env
     resave: false, //this for resaving the cookie false, if true can cause a memory leak.
     saveUninitialized: false , //saveUnitialized best false, unless connect to a database.
     cookie: {
@@ -59,12 +61,12 @@ setTimeout(() => {
 
 
 //USER endpoints:
-app.get('/api/user-data', userController.readUserData);
-app.post('/api/user-data/cart/:id', userController.addToCart);
-app.delete('api/user-date/cart/:id', userController.removeFromCart);
+//app.get('/api/user-data', userController.readUserData;
+//app.post('/api/user-data/cart/:id', userController.addToCart);
+//app.delete('api/user-date/cart/:id', userController.removeFromCart);
 //because it uses Auth0 - which means users log with social media account, there is no need to register - to login is enough
-app.post('/api/login', userController.login);
-app.post('/api/logout', userController.logout);
+//app.post('/api/login', userController.login);
+//app.post('/api/logout', userController.logout);
 
 //PRODUCTS endpoints - this is for showing (reading) products from database (reading is enough beacuse only the admin can create, update or delete products)
 app.get('api/products', productsController.readAllProducts); //getting all products

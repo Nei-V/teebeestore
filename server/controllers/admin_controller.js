@@ -1,4 +1,4 @@
-const User = equire('../models/user');
+const User = require('../models/user');
 const Product = require('../models/product');
 
 module.exports = {
@@ -32,7 +32,7 @@ module.exports = {
             product.price=price;
             product.save();
             res.status(200).json({product});
-        }
+        });
     },
 
     deleteProduct(req,res) {
