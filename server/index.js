@@ -21,19 +21,20 @@ const PORT = 3000;
 const mongoose = require('mongoose');
 
 const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
-const url = process.env.CONNECTION_STRING;
+const uri = process.env.REACT_APP_CONNECTION_STRING;
 
-MongoClient.connect(url, function(err,client) {
-    //const collection = client.db("test").collection('devices');
-    // perform actions on the collection object
-    //console.log("connectetion error");
-    assert.equal(null,err);
-    client.close();
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+    if (err){
+        return console.error("The error is",err);
+        }
+  const collection = client.db("test").collection("devices");
+  console.log("the collection",collection);
+  // perform actions on the collection object
+ 
+  client.close();
 });
 
-//if mongodb connection doesn't work to check this guide:
-//https://docs.mongodb.com/guides/server/drivers/
 
 //Middleware
 //For initializing the req.body. If the middleware is not used, the req.body is undefined.
@@ -42,8 +43,7 @@ app.use(bodyParser.json());
 
 //session -> for cookies
 app.use(session({
-    //secret: process.env.SESSION_SECRET,
-    secret: "test",//to change to env
+    secret: process.env.REACT_APP_SESSION_SECRET,
     resave: false, //this for resaving the cookie false, if true can cause a memory leak.
     saveUninitialized: false , //saveUnitialized best false, unless connect to a database.
     cookie: {
