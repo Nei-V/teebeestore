@@ -14,7 +14,7 @@ module.exports = {
     readProduct(req, res) {
         //Destruct the id from req.params - we get it from the endpoint
         const { id } = req.params;
-        Product.findById({id}).exec((err, product) => {
+        Product.findById(id).exec((err, product) => {
             if (err) console.log('Get single product error -------', err);
             console.log('product--------', product);
             res.status(200).json({product});
