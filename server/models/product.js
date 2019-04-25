@@ -7,7 +7,9 @@ const Schema = mongoose.Schema;
 const product = new Schema({
     name: String,
     description: String,
-    price: Number
+    price: Number,
+    //add pic to product
+    picture: String
 });
 //create model by having the model name and a schema of the object as the second argument, this will be inserted in database
 module.exports = mongoose.model('Product', product); 
