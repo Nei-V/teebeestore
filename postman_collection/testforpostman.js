@@ -115,3 +115,23 @@ pm.test('test if requestTime is more than 200 milliseconds',()=>{
 
 
 //tests for deleting products
+//get the current response from the postman global object, that will be of type JSON
+let response = pm.response.json();
+
+const requestUrl = pm.request.url;
+
+//pm.test with a note just to check it works and with a callback performing the test
+pm.test('Check that the status code is 200',()=>{
+    pm.respone.to.have.status(200);
+})
+
+//pm.test with a note just to check it works and with a callback performing the test
+pm.test('Check that the url has the right id', ()=>{
+    //convert the requestUrl to a string and see if it includes the correct id
+    pm.expect(requestUrl.toString()).to.include('5cc33f73e73a8c49a48524c7')
+})
+
+//test that will fail on purpoise
+pm.test('Check if the response is an array',()=>{
+    pm.expect(response).to.be.an('array');
+})
