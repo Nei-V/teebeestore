@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 
 
-export default class Navbar extends Component {
+class Navbar extends Component {
     
     linkFunc(path){
         this.props.history.push(path);
@@ -23,3 +23,5 @@ export default class Navbar extends Component {
         );
     }
 }
+
+export default withRouter(Navbar)

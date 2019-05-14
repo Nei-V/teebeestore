@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './Cart.css'
-import '../../Presentational/ProductCard'
+import ProductCard from '../../Presentational/ProductCard/ProductCard'
 
 const sampleCartData = [
     {name: 'test1', description: 'Test Product 1', price:10, id:1},

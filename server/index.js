@@ -76,7 +76,8 @@ app.get('/api/user-data', userController.readUserData);
 app.post('/api/user-data/cart/:id', userController.addToCart);
 app.delete('/api/user-date/cart/:id', userController.removeFromCart);
 //because it uses Auth0 - which means users log with social media account, there is no need to register - to login is enough
-//app.post('/api/login', userController.login);
+//app.post('/api/login', userController.login); after setting up Auth0 we change this line to:
+app.get('/auth/callback', userController.login)
 app.post('/auth/callback', userController.login)
 app.post('/api/logout', userController.logout);
 
